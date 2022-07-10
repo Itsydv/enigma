@@ -6,13 +6,13 @@ Github: github.com/Itsydv
 HideForwardsBot is free software: you can redistribute it and/or modify it under the terms of the
 Apache License (Version 2.0) as published by the Apache Software Foundation.
 """
-
+import json
 import logging
 import os
 
 from telebot.apihelper import ApiTelegramException
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
-from telebot.util import extract_arguments
+from telebot.util import extract_arguments, quick_markup
 
 from forwardsbot import bot, cur, conn, func, keyboards, constants, commandHandler
 
@@ -89,6 +89,63 @@ def add_caption_info(message):
                              "<code>Note: If the message is sent by you, you can just edit it to add the caption." +
                              "This command is intended in case for example you are forwarding from a channel a big "
                              "file you don't want to download and upload again.</code>")
+    except:
+        pass
+
+
+@bot.message_handler(chat_types=['private'], is_reply=True, commands=['addbutton'])
+def add_button(message):
+    try:
+        if func.joined_channel(message.chat.id):
+            replied_msg = message.reply_to_message
+            if len(message.text.split()) < 2:
+                bot.send_message(message.chat.id,
+                                 "Please provide button to add\n\n" +
+                                 "<code>/addbutton {'Join Us': {'url': 'https://t.me/CharlieBots'}, "
+                                 "'Source Code': {'url': 'https://github.com/Itsydv/Enigma'}}</code> "
+                                 "(brackets included) (you can copy and edit this also)")
+            else:
+                buttons = extract_arguments(message.html_text)
+                try:
+                    buttons = json.loads(buttons.replace("'", '"'))
+                except Exception as e:
+                    print(e)
+                    bot.send_message(message.chat.id, "Invalid Buttons format, Proper format is: " +
+                                     "<code>/addbutton {'Join Us': {'url': 'https://t.me/CharlieBots'}, "
+                                     "'Source Code': {'url': 'https://github.com/Itsydv/Enigma'}}</code> "
+                                     "(brackets included) (you can copy and edit this also)"
+                                     )
+                    return
+                bot.copy_message(replied_msg.chat.id, replied_msg.chat.id, replied_msg.message_id,
+                                 caption=replied_msg.caption, reply_markup=quick_markup(buttons, row_width=2),
+                                 parse_mode='HTML')
+
+    except ApiTelegramException as e:
+        if "blocked" in e.result_json['description']:
+            pass
+        else:
+            logging.error(e)
+    except Exception as e:
+        logging.error(e)
+
+
+@bot.message_handler(chat_types=['private'], is_reply=False, commands=['addbutton'])
+def add_button_info(message):
+    try:
+        if len(message.text.split()) > 1:
+            bot.reply_to(message,
+                         'Reply with this command and the buttons format after it to the message where you want to add '
+                         'buttons.')
+        else:
+            bot.send_message(message.chat.id,
+                             "<b>This command allow you to add buttons to a message." +
+                             "Reply with this command and the buttons format after it to the message where you want to "
+                             "add buttons.</b>\n\n" +
+                             "<code>/addbutton {'Join Us': {'url': 'https://t.me/CharlieBots'}, "
+                             "'Source Code': {'url': 'https://github.com/Itsydv/Enigma'}}</code> "
+                             "(brackets included) (you can copy and edit this also)" +
+                             "<i>\n\nIf the message already has buttons this command will overwrite them with the new "
+                             "ones. If the message doesn't support buttons, it simply won't add it.</i>")
     except:
         pass
 

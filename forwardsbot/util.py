@@ -78,11 +78,12 @@ class Commands:
 /policy - Bots data usage and Privacy Policy
 /id - Get Your telegram ID
 /isolate_sticker - Isolate any sticker from its original pack
-/removewebpagepreview - Use this command to remove webpage preview for an message
+/removewebpagepreview - Use this command to remove webpage preview for a message
 /removelinks - This command is used to remove <b>hyperlinks</b> from message.
-/removecaption - Use this command to remove caption from an media message
-/addcaption - Use this command to add caption to an media message
-/removebuttons - Use this command to remove buttons from an message
+/addcaption - Use this command to add caption to a media message
+/removecaption - Use this command to remove caption from a media message
+/addbutton - Use this command to add button to any message
+/removebuttons - Use this command to remove buttons from a message
 /caption - Use this message to enable/disable caption for all media messages that will be sent from now onwards
 /buttons - Use this message to enable/disable buttons for all messages that will be sent from now onwards
 /reportbug - Send a message to the bot Admin

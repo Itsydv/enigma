@@ -6,6 +6,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-orange.svg)](https://github.com/Itsydv)
 
 [![Hire me on Fiverr](https://img.shields.io/badge/Hire%20me-Fiverr-green?style=for-the-badge&logo=appveyor)](https://www.fiverr.com/share/GXpGAd)
+[![Checkout Bot on Telegram](https://img.shields.io/badge/Telegram-@HIdeForwardsBot-blue?style=for-the-badge&logo=appveyor)](https://www.t.me/HideForwardsBot)
 
 If you don't like telegram forwards, before sending a message, send the message to the bot, then forward the message that the bot returns to the user you were chatting with. Just send him File(s), Post(s) or Message(s) which you want to send to someone anonymously without leaking actual source, He will Hide actual Source (Forward Tag of real owner of that content from Post's header).
 
